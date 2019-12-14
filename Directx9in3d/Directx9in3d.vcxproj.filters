@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="D3D9.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="grid.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="fbx.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>basic</Filter>
+    </ClInclude>
+    <ClInclude Include="meshStrip.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="billboard.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D3D9.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="grid.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="fbx.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="meshStrip.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="billboard.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="shadow.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="basic">
+      <UniqueIdentifier>{210643e9-0479-443c-82e2-efa70697c5ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shape">
+      <UniqueIdentifier>{96002c0e-fa8c-414f-b144-08f12676e8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="model">
+      <UniqueIdentifier>{a0de3d16-26f4-4856-a5eb-776a6609dc3c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
