@@ -174,10 +174,10 @@ void UpdateCamera(LPDIRECT3DDEVICE9 p_device)
 		D3DXVec3TransformNormal(&g_vecRight, &g_vecRight, &mtxRotation);
 		D3DXVec3TransformNormal(&g_vecUp, &g_vecUp, &mtxRotation);
 	}
-	if (Keyboard_IsTrigger(DIK_SPACE))
-	{
-		IsTargetObj = (IsTargetObj == true ? false : true);
-	}
+	//if (Keyboard_IsTrigger(DIK_SPACE))
+	//{
+	//	IsTargetObj = (IsTargetObj == true ? false : true);
+	//}
 	////normalize vector direction
 	//D3DXVec3Normalize(&g_vecFront, &g_vecFront);
 	//D3DXVec3Normalize(&g_vecRight, &g_vecRight);

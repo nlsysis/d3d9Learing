@@ -46,6 +46,12 @@
     <ClInclude Include="particle.h">
       <Filter>shape</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Airplane.h">
+      <Filter>shape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D9.cpp">
@@ -91,6 +97,12 @@
       <Filter>shape</Filter>
     </ClCompile>
     <ClCompile Include="particle.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Airplane.cpp">
       <Filter>shape</Filter>
     </ClCompile>
   </ItemGroup>

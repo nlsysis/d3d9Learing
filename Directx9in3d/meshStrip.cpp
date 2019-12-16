@@ -2,15 +2,13 @@
 #include <vector>
 #include "Texture.h"
 
-
-
 const float  centH = 1.0f;
 const float  centW = 1.0f;
 int vertexTotal = 0;
 int indiceNum = 0;
 
 
-void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName ,float width, float height, MeshStrip &in_mesh)
+void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName ,float width, float height, MeshStrip &in_mesh, MESHTYPE type)
 {
 	LoadTexture(pDevice, textureFileName, in_mesh.textureMesh);
 
@@ -29,20 +27,40 @@ void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName ,float width
 		D3DPOOL_MANAGED,
 		&in_mesh.vb_meshBuffer,
 		0);
-	MeshGridVertex_tag *pVertices;
-	in_mesh.vb_meshBuffer->Lock(0, 0, (void**)&pVertices,0);
-	for (int i = 0; i < vertexH; i++)
+	if (type == FLOOR)
 	{
-		for (int j = 0; j < vertexW; j++)
+		MeshGridVertex_tag *pVertices;
+		in_mesh.vb_meshBuffer->Lock(0, 0, (void**)&pVertices, 0);
+		for (int i = 0; i < vertexH; i++)
 		{
-			pVertices[i * vertexW + j].position = D3DXVECTOR3((-centW_Num * 0.5 + j)* centW, 0.0f, (centH_Num * 0.5 - i)* centH);
-			pVertices[i * vertexW + j].normal = meshNormal;
-			pVertices[i * vertexW + j].textCoord = D3DXVECTOR2(j, i);
-			pVertices[i * vertexW + j].color = D3DCOLOR_RGBA(255, 255, 255, 255);
+			for (int j = 0; j < vertexW; j++)
+			{
+				pVertices[i * vertexW + j].position = D3DXVECTOR3((-centW_Num * 0.5 + j)* centW, 0.0f, (centH_Num * 0.5 - i)* centH);
+				pVertices[i * vertexW + j].normal = meshNormal;
+				pVertices[i * vertexW + j].textCoord = D3DXVECTOR2(j, i);
+				pVertices[i * vertexW + j].color = D3DCOLOR_RGBA(255, 255, 255, 255);
+			}
 		}
-	}
-	in_mesh.vb_meshBuffer->Unlock();
+		in_mesh.vb_meshBuffer->Unlock();
 
+	}
+	if (type == WALL)
+	{
+		MeshGridVertex_tag *pVertices;
+		in_mesh.vb_meshBuffer->Lock(0, 0, (void**)&pVertices, 0);
+		for (int i = 0; i < vertexH; i++)
+		{
+			for (int j = 0; j < vertexW; j++)
+			{
+				pVertices[i * vertexW + j].position = D3DXVECTOR3((-centW_Num * 0.5 + j)* centW, (centH_Num * 0.5 - i)* centH,0.0f);
+				pVertices[i * vertexW + j].normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);;
+				pVertices[i * vertexW + j].textCoord = D3DXVECTOR2(j, i);
+				pVertices[i * vertexW + j].color = D3DCOLOR_RGBA(255, 255, 255, 255);
+			}
+		}
+		in_mesh.vb_meshBuffer->Unlock();
+
+	}
 	//init index buffer
 	indiceNum = 2 * vertexW * (vertexH - 1) + 2 * (vertexH);
 	pDevice->CreateIndexBuffer((indiceNum - 2) * sizeof(WORD),

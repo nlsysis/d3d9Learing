@@ -5,13 +5,13 @@
 IDirect3DVertexBuffer9 *vb_billboard = nullptr;
 IDirect3DIndexBuffer9 *ib_billboard = nullptr;
 
-void InitBillboard(LPDIRECT3DDEVICE9 pDevice)
+void InitBillboard(LPDIRECT3DDEVICE9 pDevice,float sizeX,float sizeY)
 {
 	Billboard_tag billboard_Vertex[] = {
-		Billboard_tag(D3DXVECTOR3(-0.5f,0.5f,0.0f),D3DXVECTOR2(0.0f,0.0f)),
-		Billboard_tag(D3DXVECTOR3(0.5f,0.5f,0.0f),D3DXVECTOR2(1.0f,0.0f)),
-		Billboard_tag(D3DXVECTOR3(-0.5f,-0.5f,0.0f),D3DXVECTOR2(0.0f,1.0f)),
-		Billboard_tag(D3DXVECTOR3(0.5f,-0.5f,0.0f),D3DXVECTOR2(1.0f,1.0f))
+		Billboard_tag(D3DXVECTOR3(-0.5f * sizeX,0.5f * sizeY,0.0f),D3DXVECTOR2(0.0f,0.0f)),
+		Billboard_tag(D3DXVECTOR3(0.5f * sizeX,0.5f* sizeY,0.0f),D3DXVECTOR2(1.0f,0.0f)),
+		Billboard_tag(D3DXVECTOR3(-0.5f * sizeX,-0.5f* sizeY,0.0f),D3DXVECTOR2(0.0f,1.0f)),
+		Billboard_tag(D3DXVECTOR3(0.5f * sizeX ,-0.5f* sizeY,0.0f),D3DXVECTOR2(1.0f,1.0f))
 	};
 
 	WORD billboard_indices[] = {2,0,3,1};
@@ -71,18 +71,10 @@ void DrawBillboard(LPDIRECT3DDEVICE9 pDevice,LPDIRECT3DTEXTURE9 textureBillboard
 	matWorld = matView * matWorld;
 	pDevice->SetTransform(D3DTS_WORLD, &matWorld);
 	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	/*the center will be white*/
-	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);   //for effect
-	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	//alpha blending 
-	//pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000081);
-	//pDevice->SetRenderState(D3DRS_ALPHATESTENABLE,true);
-	//pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-
-
+	pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000081);
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE,true);
+	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	
 	pDevice->SetFVF(FVF_Billboard);
 	pDevice->SetStreamSource(0,vb_billboard,0,sizeof(Billboard_tag));
@@ -91,6 +83,8 @@ void DrawBillboard(LPDIRECT3DDEVICE9 pDevice,LPDIRECT3DTEXTURE9 textureBillboard
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP,0,0,4,0,2);
 	pDevice->SetTexture(0, nullptr);
 	pDevice->SetRenderState(D3DRS_LIGHTING, true);
+	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, false);
 }
 
 void UninitBillboard()

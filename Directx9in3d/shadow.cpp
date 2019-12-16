@@ -1,10 +1,11 @@
 #include "shadow.h"
+#include "texture.h"
 
 LPDIRECT3DTEXTURE9 textureShadow = nullptr;
 IDirect3DVertexBuffer9 *vb_shadow = nullptr;
 IDirect3DIndexBuffer9 *ib_shadow = nullptr;
 
-void InitShadow(LPDIRECT3DDEVICE9 pDevice)
+void InitShadow(LPDIRECT3DDEVICE9 pDevice,float sizeX,float sizeZ)
 {
 	pDevice->CreateVertexBuffer(4 * sizeof(Shadow_tag),
 		0,
@@ -22,10 +23,10 @@ void InitShadow(LPDIRECT3DDEVICE9 pDevice)
 
 	Shadow_tag *vertices;
 	vb_shadow->Lock(0, 0, (void**)&vertices, 0);
-	vertices[0] = Shadow_tag(D3DXVECTOR3(-0.5f, 0.0f, 0.5f), D3DXVECTOR3(0.0f,1.0f,0.0f), D3DCOLOR_RGBA(255,255,255,100),D3DXVECTOR2(0.0f, 0.0f));
-	vertices[1] = Shadow_tag(D3DXVECTOR3(0.5f, 0.0f, 0.5f), D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 100), D3DXVECTOR2(1.0f, 0.0f));
-	vertices[2] = Shadow_tag(D3DXVECTOR3(-0.5f, 0.0f, -0.5f), D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 100), D3DXVECTOR2(0.0f, 1.0f));
-	vertices[3] = Shadow_tag(D3DXVECTOR3(0.5f, 0.0f, -0.5f), D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DCOLOR_RGBA(255,255,255,100),D3DXVECTOR2(1.0f, 1.0f));
+	vertices[0] = Shadow_tag(D3DXVECTOR3(-0.5f * sizeX, 0.0f, 0.5f * sizeZ), D3DXVECTOR3(0.0f,1.0f,0.0f), D3DCOLOR_RGBA(255,255,255,100),D3DXVECTOR2(0.0f, 0.0f));
+	vertices[1] = Shadow_tag(D3DXVECTOR3(0.5f * sizeX, 0.0f, 0.5f* sizeZ), D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 100), D3DXVECTOR2(1.0f, 0.0f));
+	vertices[2] = Shadow_tag(D3DXVECTOR3(-0.5f * sizeX, 0.0f, -0.5f* sizeZ), D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 100), D3DXVECTOR2(0.0f, 1.0f));
+	vertices[3] = Shadow_tag(D3DXVECTOR3(0.5f * sizeX, 0.0f, -0.5f* sizeZ), D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DCOLOR_RGBA(255,255,255,100),D3DXVECTOR2(1.0f, 1.0f));
 	vb_shadow->Unlock();
 
 	WORD *indices;
@@ -36,30 +37,33 @@ void InitShadow(LPDIRECT3DDEVICE9 pDevice)
 	indices[3] = 1;
 	ib_shadow->Unlock();
 
+	LoadTexture(pDevice, ".\\Resource\\texture\\shadow000.jpg", textureShadow);
 }
 void UpdateShadow()
 {
 
 }
-void DrawShadow(LPDIRECT3DDEVICE9 pDevice, LPDIRECT3DTEXTURE9 textureBillboard, D3DXMATRIX matWorld)
+void DrawShadow(LPDIRECT3DDEVICE9 pDevice, D3DXMATRIX matWorld)
 {
-	//alpha blending 
-	//pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000081);
-	//pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
-	//pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-		/*the center will be black*/
+	pDevice->SetTransform(D3DTS_WORLD, &matWorld);
+
+	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	/*the center will be black*/
+	//pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	//pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_REVSUBTRACT);
+	//pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	//pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
 	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_REVSUBTRACT);
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
-	//pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-	//pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVSRCALPHA);
-	//pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
 
+	//pDevice->SetTextureStageState(0,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT2 | D3DTTFF_DISABLE);
 	pDevice->SetFVF(FVF_Shadow);
 	pDevice->SetStreamSource(0, vb_shadow, 0, sizeof(Shadow_tag));
 	pDevice->SetIndices(ib_shadow);
-	pDevice->SetTexture(0, textureBillboard);
+	pDevice->SetTexture(0, textureShadow);
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, 4, 0, 2);
 	pDevice->SetTexture(0, nullptr);
 	// ’ÊíƒuƒŒƒ“ƒh‚É–ß‚·

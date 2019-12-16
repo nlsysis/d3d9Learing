@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+#define FVF_Billboard (D3DFVF_XYZ | D3DFVF_TEX1)
+
 typedef struct Billboard_tag
 {
 	D3DXVECTOR3 position;      //vertex
@@ -13,8 +15,7 @@ typedef struct Billboard_tag
 	{}
 }Billboard;
 
-#define FVF_Billboard (D3DFVF_XYZ | D3DFVF_TEX1)
-void InitBillboard(LPDIRECT3DDEVICE9 pDevice);
+void InitBillboard(LPDIRECT3DDEVICE9 pDevice, float sizeX, float sizeY);
 void UpdateBillboard();
 void DrawBillboard(LPDIRECT3DDEVICE9 pDevice, LPDIRECT3DTEXTURE9 textureBillboard,  D3DXMATRIX matWorld);
 void UninitBillboard();

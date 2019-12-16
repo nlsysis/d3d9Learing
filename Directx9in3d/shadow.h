@@ -18,7 +18,7 @@ typedef struct Shadow_tag
 }Shadow;
 
 #define FVF_Shadow (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE| D3DFVF_TEX1)
-void InitShadow(LPDIRECT3DDEVICE9 pDevice);
+void InitShadow(LPDIRECT3DDEVICE9 pDevice, float sizeX, float sizeZ);
 void UpdateShadow();
-void DrawShadow(LPDIRECT3DDEVICE9 pDevice, LPDIRECT3DTEXTURE9 textureBillboard, D3DXMATRIX matWorld);
+void DrawShadow(LPDIRECT3DDEVICE9 pDevice, D3DXMATRIX matWorld);
 void UninitShadow();

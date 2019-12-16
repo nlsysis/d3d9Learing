@@ -10,7 +10,7 @@ typedef struct MeshGridVertex_tag
 }MeshGridVertex;
 
 #define FVF_MESH (D3DFVF_XYZ  | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1 )
-
+enum MESHTYPE{FLOOR=0,WALL};
 typedef struct MeshStrip
 {
 	IDirect3DVertexBuffer9 *vb_meshBuffer = nullptr;
@@ -18,6 +18,6 @@ typedef struct MeshStrip
 	LPDIRECT3DTEXTURE9 textureMesh = nullptr;
 	int primCount = 0;
 };
-void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName,float width,float height, MeshStrip &in_mesh);
+void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName,float width,float height, MeshStrip &in_mesh,MESHTYPE type);
 void  UninitGridMesh(MeshStrip &in_mesh);
 void DrawGridMesh(LPDIRECT3DDEVICE9 pDevice, MeshStrip &in_mesh);
