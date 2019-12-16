@@ -3,7 +3,8 @@
 #include "polygon.h"
 #include "cube.h"
 #include "grid.h"
-#include "camera.h"
+//#include "camera.h"
+#include "CameraFol.h"
 #include "light.h"
 #include "Model.h"
 #include "meshStrip.h"
@@ -23,9 +24,18 @@ Model m_gradriel;
 Model m_cart;
 MeshStrip m_floor;
 MeshStrip m_wall;
-float gridWidth = 10.0f;
-float gridHeight = 8.0f;
-float wallHeight = 1.0f;
+MeshStrip m_wallLR;
+int widthNum = 10.0f;
+int heightNum = 8.0f;
+float centH = 20.0f;
+float centW = 20.0f;
+float wallCentH = 30.0f;
+float wallcent = 1.0f;
+float gridWidth = widthNum * centW;
+float gridHeight = heightNum * centH;
+float wallHeight = wallcent * wallCentH;
+
+
 
 //-----------------------------------game:Init(HWND hWnd)-------------------
 //	Des: Direct3D‚Ì‰Šú‰»
@@ -83,22 +93,22 @@ HRESULT Objects_Init(HWND hWnd)
 //	g_pDevice->SetRenderState(D3DRS_ZENABLE,FALSE);
 	//InitPolygon();
 	InitCube(g_pDevice);
-	InitCamera(g_pDevice);
-	
+	InitCameraFol(g_pDevice);
 	
 	InitGrid(sizeX, sizeX);
 
 	LoadModel(g_pDevice, ".\\Resource\\gradriel\\gradriel.x", ".\\Resource\\gradriel\\",m_gradriel);
 	LoadModel(g_pDevice, ".\\Resource\\cart\\cart.x", ".\\Resource\\cart\\",m_cart);
 	
-	InitGridMesh(g_pDevice, ".\\Resource\\texture\\field001.jpg",gridWidth, gridHeight,m_floor,FLOOR);
-	InitGridMesh(g_pDevice, ".\\Resource\\texture\\wall003.jpg", gridWidth, wallHeight, m_wall,WALL);
+	InitGridMesh(g_pDevice, ".\\Resource\\texture\\field001.jpg", widthNum, heightNum,centW, centH,m_floor,FLOOR);
+	InitGridMesh(g_pDevice, ".\\Resource\\texture\\wall003.jpg", widthNum, wallcent, centW, wallCentH, m_wall,WALL);
+	InitGridMesh(g_pDevice, ".\\Resource\\texture\\wall003.jpg", heightNum, wallcent, centH, wallCentH, m_wallLR, WALL);
 	//load texture
 	LoadTexture(g_pDevice, ".\\Resource\\texture\\tree001.png", treeTexture);
 	
 	InitParticle(g_pDevice);
 	InitAirplane(g_pDevice);
-//	InitShadow(g_pDevice,0.5f,0.5f);
+
 	return S_OK;
 }
 //-----------------------------------game:UnInit()-------------------
@@ -112,11 +122,11 @@ void UnInit()
 	UninitModel(m_cart);
 	UninitGridMesh(m_floor);
 	UninitGridMesh(m_wall);
-//	UninitBillboard();
+	UninitGridMesh(m_wallLR);
 	UninitTexture(treeTexture);
 	UninitParticle();
 	UninitAirplane();
-//	UninitShadow();
+
 }
 
 //-----------------------------------game:Update()-------------------
@@ -126,7 +136,7 @@ void Update()
 {
 	//UpdatePolygon();
 	//UpdateCube(g_pDevice);
-	UpdateCamera(g_pDevice);
+	UpdateCameraFol(g_pDevice);
 	UpdateAirplane();
 	
 
@@ -147,14 +157,11 @@ void Draw()
 
 	D3DXMATRIX matWorld,matScale,matTrans,matRoll,matTrans2;
 
-//	D3DXMatrixTranslation(&matTrans,0.0f,1.0f,0.0f);
-//	matWorld = matWorld * matTrans;
-//	DrawParticle(g_pDevice, shadowTexture, matWorld);
-
 	//mesh-floor
 	D3DXMatrixIdentity(&matWorld);
 	g_pDevice->SetTransform(D3DTS_WORLD, &matWorld);
 	DrawGridMesh(g_pDevice, m_floor);
+
 	//mesh-back wall
 	D3DXMatrixIdentity(&matWorld); 
 	D3DXMatrixTranslation(&matTrans, 0.0f, wallHeight/2, gridHeight /2);
@@ -169,14 +176,26 @@ void Draw()
 	matWorld = matWorld * matRoll* matTrans;
 	g_pDevice->SetTransform(D3DTS_WORLD, &matWorld);
 	DrawGridMesh(g_pDevice, m_wall);
+	
+	//mesh-left wall
+	D3DXMatrixIdentity(&matWorld);
+	D3DXMatrixTranslation(&matTrans, -gridWidth / 2, wallHeight / 2, 0.0f);
+	D3DXMatrixRotationY(&matRoll, -D3DX_PI/2);
+	matWorld = matWorld * matRoll * matTrans;
+	g_pDevice->SetTransform(D3DTS_WORLD, &matWorld);
+	DrawGridMesh(g_pDevice, m_wallLR);
+
+	//mesh-right wall
+	D3DXMatrixIdentity(&matWorld);
+	D3DXMatrixTranslation(&matTrans, gridWidth / 2, wallHeight / 2, 0.0f);
+	D3DXMatrixRotationY(&matRoll, D3DX_PI / 2);
+	matWorld = matWorld * matRoll * matTrans;
+	g_pDevice->SetTransform(D3DTS_WORLD, &matWorld);
+	DrawGridMesh(g_pDevice, m_wallLR);
 
 	DrawAirplane(g_pDevice);
 
-	//draw shadow
-	D3DXMatrixIdentity(&matWorld);
-	D3DXMatrixTranslation(&matTrans, 0.0f, 1.0f, 0.0f);
-	matWorld = matWorld * matTrans;
-	//DrawShadow(g_pDevice, matWorld);
+
 
 
 	g_pDevice->EndScene();

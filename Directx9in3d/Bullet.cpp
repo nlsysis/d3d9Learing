@@ -16,8 +16,8 @@ void InitBullet(LPDIRECT3DDEVICE9 pDevice)
 	}
 	LoadTexture(pDevice, ".\\Resource\\texture\\bullet000.png", bulletTexture);
 
-	InitBillboard(pDevice,0.5f,0.5f);
-	InitShadow(pDevice, 0.5f, 0.5f);
+	InitBillboard(pDevice, 3.0f, 3.0f);
+	InitShadow(pDevice, 3.0f,  3.0f);
 }
 void UpdateBullet()
 {
@@ -32,12 +32,12 @@ void DrawBullet(LPDIRECT3DDEVICE9 pDevice)
 			m_Bullet[i].pos += m_Bullet[i].velocity;
 			D3DXMATRIX matWorld,  matTrans, matRoll, matTrans2;
 			D3DXMatrixIdentity(&matWorld);
-			D3DXMatrixTranslation(&matTrans, m_Bullet[i].pos.x, m_Bullet[i].pos.y + 0.6f,m_Bullet[i].pos.z);
+			D3DXMatrixTranslation(&matTrans, m_Bullet[i].pos.x, m_Bullet[i].pos.y + 3.0f,m_Bullet[i].pos.z);
 			matWorld = matWorld * matTrans;
 			DrawBillboard(pDevice, bulletTexture, matWorld);
 			//shadow
 			D3DXMatrixIdentity(&matWorld);
-			D3DXMatrixTranslation(&matTrans, m_Bullet[i].pos.x, 0.1f, m_Bullet[i].pos.z);
+			D3DXMatrixTranslation(&matTrans, m_Bullet[i].pos.x, 0.2f, m_Bullet[i].pos.z);
 			matWorld = matWorld * matTrans;
 			DrawShadow(pDevice, matWorld);
 		}

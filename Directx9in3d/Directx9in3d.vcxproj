@@ -150,6 +150,7 @@
     <ClInclude Include="billboard.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="CameraFol.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="D3D9.h" />
     <ClInclude Include="fbx.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="CameraFol.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="D3D9.cpp" />
     <ClCompile Include="fbx.cpp" />

@@ -52,6 +52,9 @@
     <ClInclude Include="Airplane.h">
       <Filter>shape</Filter>
     </ClInclude>
+    <ClInclude Include="CameraFol.h">
+      <Filter>basic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D9.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Airplane.cpp">
       <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFol.cpp">
+      <Filter>basic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

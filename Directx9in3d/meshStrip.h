@@ -18,6 +18,7 @@ typedef struct MeshStrip
 	LPDIRECT3DTEXTURE9 textureMesh = nullptr;
 	int primCount = 0;
 };
-void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName,float width,float height, MeshStrip &in_mesh,MESHTYPE type);
+void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName, int widthNum, int heightNum,
+	float centH, float centW,  MeshStrip &in_mesh,MESHTYPE type);
 void  UninitGridMesh(MeshStrip &in_mesh);
 void DrawGridMesh(LPDIRECT3DDEVICE9 pDevice, MeshStrip &in_mesh);

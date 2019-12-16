@@ -8,10 +8,10 @@ IDirect3DIndexBuffer9 *ib_billboard = nullptr;
 void InitBillboard(LPDIRECT3DDEVICE9 pDevice,float sizeX,float sizeY)
 {
 	Billboard_tag billboard_Vertex[] = {
-		Billboard_tag(D3DXVECTOR3(-0.5f * sizeX,0.5f * sizeY,0.0f),D3DXVECTOR2(0.0f,0.0f)),
-		Billboard_tag(D3DXVECTOR3(0.5f * sizeX,0.5f* sizeY,0.0f),D3DXVECTOR2(1.0f,0.0f)),
-		Billboard_tag(D3DXVECTOR3(-0.5f * sizeX,-0.5f* sizeY,0.0f),D3DXVECTOR2(0.0f,1.0f)),
-		Billboard_tag(D3DXVECTOR3(0.5f * sizeX ,-0.5f* sizeY,0.0f),D3DXVECTOR2(1.0f,1.0f))
+		Billboard_tag(D3DXVECTOR3(-0.5f * sizeX, 0.5f * sizeY,0.0f),D3DXVECTOR2(0.0f,0.0f)),
+		Billboard_tag(D3DXVECTOR3(0.5f * sizeX, 0.5f* sizeY,0.0f),D3DXVECTOR2(1.0f,0.0f)),
+		Billboard_tag(D3DXVECTOR3(-0.5f * sizeX, -0.5f* sizeY,0.0f),D3DXVECTOR2(0.0f,1.0f)),
+		Billboard_tag(D3DXVECTOR3(0.5f * sizeX , -0.5f* sizeY,0.0f),D3DXVECTOR2(1.0f,1.0f))
 	};
 
 	WORD billboard_indices[] = {2,0,3,1};

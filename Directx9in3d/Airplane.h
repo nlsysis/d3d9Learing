@@ -16,3 +16,4 @@ void InitAirplane(LPDIRECT3DDEVICE9 pDevice);
 void UpdateAirplane();
 void DrawAirplane(LPDIRECT3DDEVICE9 pDevice);
 void UninitAirplane();
+D3DXVECTOR3 GetAirplanePos();

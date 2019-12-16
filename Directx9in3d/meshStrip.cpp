@@ -2,18 +2,19 @@
 #include <vector>
 #include "Texture.h"
 
-const float  centH = 1.0f;
-const float  centW = 1.0f;
+//const float  centH = 20.0f;
+//const float  centW = 20.0f;
 int vertexTotal = 0;
 int indiceNum = 0;
 
 
-void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName ,float width, float height, MeshStrip &in_mesh, MESHTYPE type)
+void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName ,int widthNum, int heightNum, 
+	float centW,float centH,MeshStrip &in_mesh, MESHTYPE type)
 {
 	LoadTexture(pDevice, textureFileName, in_mesh.textureMesh);
 
-	int centH_Num = height / centH;
-	int centW_Num = width / centW;
+	int centH_Num = heightNum;
+	int centW_Num = widthNum;
 
 	int vertexW = centW_Num + 1;
 	int vertexH = centH_Num + 1;
