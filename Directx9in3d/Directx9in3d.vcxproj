@@ -151,8 +151,11 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="CameraFol.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="D3D9.h" />
+    <ClInclude Include="debugproc.h" />
+    <ClInclude Include="ExplostionEffect.h" />
     <ClInclude Include="fbx.h" />
     <ClInclude Include="grid.h" />
     <ClInclude Include="input.h" />
@@ -173,6 +176,8 @@
     <ClCompile Include="CameraFol.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="D3D9.cpp" />
+    <ClCompile Include="debugproc.cpp" />
+    <ClCompile Include="ExplostionEffect.cpp" />
     <ClCompile Include="fbx.cpp" />
     <ClCompile Include="grid.cpp" />
     <ClCompile Include="input.cpp" />

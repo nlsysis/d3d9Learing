@@ -55,6 +55,15 @@
     <ClInclude Include="CameraFol.h">
       <Filter>basic</Filter>
     </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplostionEffect.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="debugproc.h">
+      <Filter>basic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D9.cpp">
@@ -109,6 +118,12 @@
       <Filter>shape</Filter>
     </ClCompile>
     <ClCompile Include="CameraFol.cpp">
+      <Filter>basic</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplostionEffect.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="debugproc.cpp">
       <Filter>basic</Filter>
     </ClCompile>
   </ItemGroup>

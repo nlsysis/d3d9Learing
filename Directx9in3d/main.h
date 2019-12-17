@@ -9,6 +9,20 @@
 #define WINDOW_STYLEX (120)
 #define WINDOW_STYLEY (20)
 
+#define FVF_TEXTURE2D (D3DFVF_XYZ | D3DFVF_TEX1)
+
+typedef struct TEXTURE2D_tag
+{
+	D3DXVECTOR3 position;      //vertex
+	D3DXVECTOR2 textCoord;     //uv
+
+	TEXTURE2D_tag(D3DXVECTOR3 in_position, D3DXVECTOR2 in_textCoord)
+		:
+		position(in_position),
+		textCoord(in_textCoord)
+	{}
+}TEXTURE2D;
+
 /*------------------------------------------------------------
   ä÷êîÇêÈåæ
 ------------------------------------------------------------*/

@@ -17,8 +17,15 @@ typedef struct Shadow_tag
 	{}
 }Shadow;
 
+struct ShadowType
+{
+	LPDIRECT3DTEXTURE9 textureShadow = nullptr;
+	IDirect3DVertexBuffer9 *vb_shadow = nullptr;
+	IDirect3DIndexBuffer9 *ib_shadow = nullptr;
+};
+
 #define FVF_Shadow (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE| D3DFVF_TEX1)
-void InitShadow(LPDIRECT3DDEVICE9 pDevice, float sizeX, float sizeZ);
+void InitShadow(LPDIRECT3DDEVICE9 pDevice, float sizeX, float sizeZ, ShadowType &in_shadow);
 void UpdateShadow();
-void DrawShadow(LPDIRECT3DDEVICE9 pDevice, D3DXMATRIX matWorld);
-void UninitShadow();
+void DrawShadow(LPDIRECT3DDEVICE9 pDevice, D3DXMATRIX matWorld, ShadowType &in_shadow);
+void UninitShadow(ShadowType &in_shadow);

@@ -12,6 +12,8 @@
 #include "particle.h"
 #include "airplane.h"
 #include "shadow.h"
+#include "billboard.h"
+#include "debugproc.h"
 /*------------------------------------------------------------
  ƒOƒ[ƒoƒ‹•Ï”‚ðéŒ¾
 ------------------------------------------------------------*/
@@ -109,6 +111,9 @@ HRESULT Objects_Init(HWND hWnd)
 	InitParticle(g_pDevice);
 	InitAirplane(g_pDevice);
 
+	SetBoard(gridWidth / 2, gridHeight / 2);
+	InitDebugProc(g_pDevice);
+	//InitBillboard(g_pDevice, 3.0f, 3.0f);
 	return S_OK;
 }
 //-----------------------------------game:UnInit()-------------------
@@ -126,7 +131,8 @@ void UnInit()
 	UninitTexture(treeTexture);
 	UninitParticle();
 	UninitAirplane();
-
+	UninitDebugProc();
+//	UninitBillboard();
 }
 
 //-----------------------------------game:Update()-------------------
@@ -196,8 +202,9 @@ void Draw()
 	DrawAirplane(g_pDevice);
 
 
-
-
+//	D3DXMatrixIdentity(&matWorld);
+//	DrawBillboard(g_pDevice,treeTexture,matWorld);
+	DrawDebugProc();
 	g_pDevice->EndScene();
 	g_pDevice->Present(NULL, NULL, NULL, NULL);
 }

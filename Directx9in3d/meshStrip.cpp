@@ -54,7 +54,7 @@ void InitGridMesh(LPDIRECT3DDEVICE9 pDevice, LPCSTR textureFileName ,int widthNu
 			for (int j = 0; j < vertexW; j++)
 			{
 				pVertices[i * vertexW + j].position = D3DXVECTOR3((-centW_Num * 0.5 + j)* centW, (centH_Num * 0.5 - i)* centH,0.0f);
-				pVertices[i * vertexW + j].normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);;
+				pVertices[i * vertexW + j].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);;
 				pVertices[i * vertexW + j].textCoord = D3DXVECTOR2(j, i);
 				pVertices[i * vertexW + j].color = D3DCOLOR_RGBA(255, 255, 255, 255);
 			}

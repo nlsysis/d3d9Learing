@@ -1,5 +1,5 @@
 #include "billboard.h"
-#include "camera.h"
+#include "cameraFol.h"
 #include "Texture.h"
 
 IDirect3DVertexBuffer9 *vb_billboard = nullptr;
@@ -53,27 +53,18 @@ void UpdateBillboard()
 void DrawBillboard(LPDIRECT3DDEVICE9 pDevice,LPDIRECT3DTEXTURE9 textureBillboard, D3DXMATRIX matWorld)
 {
 	pDevice->SetRenderState(D3DRS_LIGHTING, false);
-	//calculate the billboard position
-	//D3DXVECTOR3 camPos = GetCameraPosition();
-	//float angle = atan2(billboardPos.x - camPos.x , billboardPos.z - camPos.z);
-	//D3DXMATRIX matWorld, matRoll, matTrans;
-	//D3DXMatrixIdentity(&matWorld);
-	//D3DXMatrixRotationY(&matRoll,angle);
-	//D3DXMatrixTranslation(&matTrans, billboardPos.x, billboardPos.y, billboardPos.z);
-	//matWorld = matWorld * matRoll * matTrans;
-
 	//another way using transpose matrix
-	D3DXMATRIX matView = GetViewMatrix();
+	D3DXMATRIX matView = GetFolViewMatrix();
 	D3DXMatrixTranspose(&matView,&matView);
 	matView._14 = 0.0f;
 	matView._24 = 0.0f;
 	matView._34 = 0.0f;
 	matWorld = matView * matWorld;
 	pDevice->SetTransform(D3DTS_WORLD, &matWorld);
-	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+//	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	//alpha blending 
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
 	pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000081);
-	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE,true);
 	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	
 	pDevice->SetFVF(FVF_Billboard);
@@ -83,8 +74,10 @@ void DrawBillboard(LPDIRECT3DDEVICE9 pDevice,LPDIRECT3DTEXTURE9 textureBillboard
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP,0,0,4,0,2);
 	pDevice->SetTexture(0, nullptr);
 	pDevice->SetRenderState(D3DRS_LIGHTING, true);
-	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, false);
+//	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+
+
 }
 
 void UninitBillboard()
