@@ -77,7 +77,7 @@ void UpdateAirplane()
 		isKey = true;
 	}
 	// “ü—Í‚³‚ê‚½ƒL[‚É‡‚í‚¹‚ÄŒü‚«‚ðŒˆ‚ß‚é
-	float roty = 0.0f;
+	static float roty = 0.0f;
 	if (finishSpin) {
 		switch (dir)
 		{
@@ -185,7 +185,7 @@ void UpdateAirplane()
 	}
 
 	if (abs(targetRad - tmpRad) > 0.005f) {
-		if (abs(targetRad - tmpRad) >= D3DX_PI) {
+		if (abs(targetRad - tmpRad) > D3DX_PI) {
 			if (targetRad > tmpRad)
 				targetRad = tmpRad - D3DX_PI / 2;
 			else

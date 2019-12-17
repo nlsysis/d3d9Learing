@@ -6,7 +6,8 @@ EXPLOSSION m_explossion[EXPLOSSION_MAX];
 IDirect3DVertexBuffer9 *vb_explossion = nullptr;
 IDirect3DIndexBuffer9 *ib_explossion = nullptr;
 LPDIRECT3DTEXTURE9 explossionTexture = nullptr;
-
+float m_sizeX;
+float m_sizeY;
 void InitExplossion(LPDIRECT3DDEVICE9 pDevice, float sizeX, float sizeY)
 {
 	TEXTURE2D_tag billboard_Vertex[] = {
@@ -60,6 +61,9 @@ void InitExplossion(LPDIRECT3DDEVICE9 pDevice, float sizeX, float sizeY)
 	LoadTexture(pDevice,".\\Resource\\explosion000.png", explossionTexture);
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
+	m_sizeX = sizeX;
+	m_sizeY = sizeY;
 }
 
 void SetExplossion(D3DXVECTOR3 in_pos)
@@ -67,6 +71,23 @@ void SetExplossion(D3DXVECTOR3 in_pos)
 	for (int i = 0; i < EXPLOSSION_MAX; i++)
 	{
 		if (m_explossion[i].isUsed) continue;
+		
+		if (in_pos.x > 100 - m_sizeX/2)
+		{
+			in_pos.x = 100 - m_sizeX / 2 - m_sizeX * 0.1f;
+		}
+		if (in_pos.x < -100 + m_sizeX / 2)
+		{
+			in_pos.x = -100 + m_sizeX / 2 + m_sizeX * 0.1f;
+		}
+		if (in_pos.z > 80 - m_sizeY / 2)
+		{
+			in_pos.z = 80 - m_sizeY / 2 - m_sizeX * 0.1f;
+		}
+		if (in_pos.z < -80 + m_sizeY / 2)
+		{
+			in_pos.z = -80 + m_sizeY / 2 + m_sizeX * 0.1f;
+		}
 		m_explossion[i].position = in_pos;
 		m_explossion[i].nFrame = 1;
 		m_explossion[i].isUsed = true;
@@ -91,7 +112,7 @@ void DrawExplossion(LPDIRECT3DDEVICE9 pDevice)
 			matView._14 = 0.0f;
 			matView._24 = 0.0f;
 			matView._34 = 0.0f;
-			D3DXMatrixTranslation(&matTrans, m_explossion[i].position.x, m_explossion[i].position.y, m_explossion[i].position.z -1.0f);
+			D3DXMatrixTranslation(&matTrans, m_explossion[i].position.x, m_explossion[i].position.y + 3.0f, m_explossion[i].position.z -1.0f);
 
 			matWorld = matView * matWorld * matTrans;
 			pDevice->SetTransform(D3DTS_WORLD, &matWorld);

@@ -17,13 +17,13 @@ void InitBullet(LPDIRECT3DDEVICE9 pDevice)
 		m_Bullet[i].isUsed= false;
 		m_Bullet[i].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		m_Bullet[i].velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		m_Bullet[i].radius = 1.8f;
+		m_Bullet[i].radius = 2.0f;
 	}
 	LoadTexture(pDevice, ".\\Resource\\texture\\bullet000.png", bulletTexture);
 
 	InitBillboard(pDevice, 3.0f, 3.0f);
 	InitShadow(pDevice, 3.0f,  3.0f, bulletShadow);
-	InitExplossion(pDevice,3.0f,3.0f);
+	InitExplossion(pDevice,4.0f,4.0f);
 }
 void UpdateBullet()
 {
